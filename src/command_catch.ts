@@ -1,4 +1,5 @@
 import type { State } from "./state.js";
+import { savePokedex } from "./storage.js";
 
 export async function commandCatch(state: State, ...args: string[]) {
     if (args.length !== 1) {
@@ -19,4 +20,5 @@ export async function commandCatch(state: State, ...args: string[]) {
     console.log(`${name} was caught!`);
     console.log("You may now inspect it with the inspect command.");
     state.pokedex[name] = pokemon;
+    savePokedex(state.pokedexPath, state.pokedex);
 }

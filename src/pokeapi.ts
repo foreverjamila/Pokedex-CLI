@@ -62,10 +62,27 @@ export class PokeAPI {
     if (!response.ok) {
       throw new Error(`Error fetching pokemon '${pokemonName}': ${response.status} ${response.statusText}`);
     }
-    const data: Pokemon = await response.json();
+    const data = toPokemon(await response.json());
     this.#cache.add(fullURL, data);
     return data;
   }
+}
+
+function toPokemon(raw: Pokemon): Pokemon {
+  return {
+    id: raw.id,
+    name: raw.name,
+    base_experience: raw.base_experience,
+    height: raw.height,
+    weight: raw.weight,
+    stats: raw.stats.map((s) => ({
+      base_stat: s.base_stat,
+      stat: { name: s.stat.name },
+    })),
+    types: raw.types.map((t) => ({
+      type: { name: t.type.name },
+    })),
+  };
 }
 
 export type ShallowLocations = {
