@@ -37,7 +37,7 @@ export function getCommands(): Record<string, CLICommand> {
         },
         catch: {
             name: "catch",
-            description: "Try to catch a Pokemon and add it to your Pokedex",
+            description: "Try to catch a Pokemon (optional ball: pokeball, greatball, ultraball)",
             callback: commandCatch,
         },
         inspect: {
